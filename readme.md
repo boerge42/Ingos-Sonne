@@ -36,7 +36,7 @@ Ok, was brauchen wir:
 
 
 
-** Schaltung (mit Arduino Nano): **
+**Schaltung (mit Arduino Nano):**
 
 <img src="images/ingos sonne_Steckplatine.png" width="1000"/>
 
