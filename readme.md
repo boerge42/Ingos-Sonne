@@ -53,7 +53,7 @@ Was muss die Firmware können, welche "Sonderlocken" sind implementiert:
 * wenn eine Verbindunsunterbrechung zum Handy-Netz erkannt wird (ebenfalls via RING-Pin), neuer Verbundungsaufbau
 
 
-# Ergebnis
+## Ergebnis
 
 ...noch war kein Schulanfang...
 
