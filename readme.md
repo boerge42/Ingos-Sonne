@@ -22,7 +22,7 @@ Ok, was brauchen wir:
     * [Datasheet SIM800L](https://www.makershop.de/download/Datasheet_SIM800L.pdf)
     * [Pinout SIM800l-Modul](https://www.makershop.de/download/SIM800L-GSM-Pinout.jpg)
     * [AT-Kommandos SIM800L](https://raspberry-pi.fr/download/SIM800%20Series_AT%20Command%20Manual_V1.09.pdf)
-* einen Mikrocontroller ATMega328 (Arduino Nano oder Pro Mini) zur:
+* einen Mikrocontroller ATMega328 (Arduino Nano oder Mini Pro) zur:
     * Ansteuerung des GSM-Modems
     * Warten/Reaktion auf/bei Anruf
     * Ansteuerung des LED-Streifens
@@ -36,9 +36,24 @@ Ok, was brauchen wir:
 
 
 
-**Schaltung (mit Arduino Nano):**
+**Schaltung mit Arduino Nano:**
+
+Der integrierte USB-TTL-Konverter macht sich ganz bei der Entwicklung der Firmware, es liegen nicht so viel "Strippen" auf dem Schreibtisch rum...
 
 <img src="images/ingos sonne_Steckplatine.png" width="1000"/>
+<img src="images/testaufbau.jpg" width="1000"/>
+
+Der Elko am Ende des LED-Steifen ist ein "Angst-Elko" :-)...
+<br>
+<br>
+<br>
+
+
+**Schaltung mit Arduino Mini Pro (Zielplattform):**
+
+...für das eigentliche Gerät brauchen wir den USB-TTL-Konverter nicht mehr, er verbraucht eh nur sinnlos Strom!
+
+<img src="images/ingos sonne v2_Steckplatine.png" width="1000"/>
 
 
 ## Firmware Mikrocontroller
