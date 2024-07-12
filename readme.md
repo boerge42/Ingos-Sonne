@@ -38,7 +38,7 @@ Ok, was brauchen wir:
 
 **Schaltung mit Arduino Nano:**
 
-Der integrierte USB-TTL-Konverter macht sich ganz bei der Entwicklung der Firmware, es liegen nicht so viel "Strippen" auf dem Schreibtisch rum...
+Der integrierte USB-TTL-Konverter macht sich ganz gut bei der Entwicklung der Firmware --> es liegen nicht so viel "Strippen" auf dem Schreibtisch rum...
 
 <img src="images/ingos sonne_Steckplatine.png" width="1000"/>
 <img src="images/testaufbau.jpg" width="1000"/>
