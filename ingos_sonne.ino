@@ -49,8 +49,11 @@ SoftwareSerial sim800l(SIM800L_RX, SIM800L_TX);
 
 // LED-Strip (WS2812)
 #define LED_PIN			            6       // GPIO-Pin
-#define NUM_LEDS		            14      // Anzahl LEDs im Strip
-#define TIME_LED_ANIMATION      10000   // 10s; Dauer Animation
+#define NUM_GROUPS 8     // Anzahl der Gruppen/Strahlen
+#define STRIP_LENGTH 12  // Anzahl der LEDs pro Strahl
+#define SPACING 2        // Fester Abstand von 1 LED zwischen leuchtenden LEDs
+#define TIME_LED_ANIMATION      20000   // 20s; Dauer Animation
+#define NUM_LEDS                NUM_GROUPS*STRIP_LENGTH      // Anzahl LEDs im Strip
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -169,6 +172,62 @@ void registerViaSimPin() {
   Serial.println("...sim card is registered!");
 }
 
+// Funktion, um eine Farbe zwischen Gelb, Orange und Rot zu berechnen
+uint32_t getGradientColor(int position) {
+  int r, g, b;
+
+  // Gelb (255, 150, 0) -> Orange -> Rot Übergang
+  if (position < STRIP_LENGTH / 2) {
+    // Gelb (255, 150, 0) zu Orange (255, 100, 0)
+    r = 255;
+    g = 150 - (50 * position) / (STRIP_LENGTH / 2);
+    b = 0;
+  } else {
+    // Orange (255, 100, 0) zu Rot (255, 0, 0)
+    r = 255;
+    g = 100 - (100 * (position - STRIP_LENGTH / 2)) / (STRIP_LENGTH / 2);
+    b = 0;
+  }
+
+  return strip.Color(r, g, b);
+}
+
+// ************************************************************************
+void doSunAnimationCycle() {
+  for (int i = 0; i < STRIP_LENGTH + (NUM_GROUPS - 1) * SPACING; i++) {
+    for (int group = 0; group < NUM_GROUPS; group++) {
+      for (int j = 0; j < STRIP_LENGTH / SPACING; j++) {
+        int ledIndex = group * STRIP_LENGTH + (i - j * SPACING);
+        if (ledIndex >= group * STRIP_LENGTH && ledIndex < (group + 1) * STRIP_LENGTH) {
+          int positionInStrip = ledIndex % STRIP_LENGTH;
+          strip.setPixelColor(ledIndex, getGradientColor(positionInStrip)); // Setze die LED mit Farbverlauf
+        }
+      }
+    }
+    strip.show(); // Aktualisiert die LEDs
+    delay(100); // Warte 100ms
+
+    for (int group = 0; group < NUM_GROUPS; group++) {
+      for (int j = 0; j < STRIP_LENGTH / SPACING; j++) {
+        int ledIndex = group * STRIP_LENGTH + (i - j * SPACING);
+        if (ledIndex >= group * STRIP_LENGTH && ledIndex < (group + 1) * STRIP_LENGTH) {
+          strip.setPixelColor(ledIndex, strip.Color(0, 0, 0)); // Setze die LED wieder auf "aus"
+        }
+      }
+    }
+  }
+}
+
+// ************************************************************************
+void displaySunAnimation(unsigned long duration) {
+  unsigned long start = millis();
+  while (millis() - start < duration) {
+    doSunAnimationCycle();
+  }
+  strip.clear();
+  strip.show();
+}
+
 // ************************************************************************
 void displayRainbowAnimation(unsigned long duration) {
   unsigned long start = millis();
@@ -244,7 +303,7 @@ void doTask() {
 		  sendATCommand("ATH", 250);        // Auflegen
 	  } 
       Serial.println("Animate led-strip...");
-      displayRainbowAnimation(TIME_LED_ANIMATION);
+      displaySunAnimation(TIME_LED_ANIMATION);
     }
   }
   animation = true;
