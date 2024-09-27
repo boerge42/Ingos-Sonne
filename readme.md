@@ -3,7 +3,7 @@
 ## Motivation
 
 Ingo wollte eine Sonne aus LEDs auf einer Schultüte. Die Sonne sollte ferngesteuert einschaltbar sein. Nach einigen Diskussionen meinten wir, dass die Fernsteuerung der LEDs über das Handy-Netz am sichersten wäre:
-  
+
 * es ist nicht sichergestellt, dass im entscheidenen Moment entsprechender Sichtkontakt zur Schultüte besteht--> IR-Fernbedienung o.ä. verworfen
 * bei Bluetooth, Zigbee o.ä. könnte die Reichweite und die Umgebung schon eine Rolle spielen --> verworfen
 * WLAN vielleicht, aber "wer WLAN kennt, nimmt Kabel" oder so ähnlich; es könnte auch zu Engpässen bei der Stromversorgung kommen... --> verworfen
@@ -11,12 +11,12 @@ Ingo wollte eine Sonne aus LEDs auf einer Schultüte. Die Sonne sollte ferngeste
 
 Der "originale Bierdeckel", hier noch mit der WLAN-Variante als Fernsteuerung:
 
-<img src="images/photo_2024-04-11_12-16-44.jpg" width="300"/>
+<img src="images/bierdeckel.png" width="500"/>
 
 
 ## Hardware
 
-Ok, was brauchen wir:
+**Ok, was brauchen wir:**
 
 * ein GSM-Modem (und eine entsprechende SIM-Karte ;-)) --> SIM800L
     * [Datasheet SIM800L](https://www.makershop.de/download/Datasheet_SIM800L.pdf)
@@ -31,30 +31,24 @@ Ok, was brauchen wir:
     * LM2596
         * ideale Spannung des GSM-Modem ca. 4,2V
         * es gibt Stromspitzen bis zu 2A; deshalb auch noch ein Elko (470uF) direkt am GSM-Modem
-    * eine Powerbank mit ausreichender Kapazität und die mit niedrigen Ladeströmen irgendwie umgehen kann
-
-
-
-
-**Schaltung mit Arduino Nano:**
-
-Der integrierte USB-TTL-Konverter macht sich ganz gut bei der Entwicklung der Firmware --> es liegen nicht so viel "Strippen" auf dem Schreibtisch rum...
-
-<img src="images/ingos sonne_Steckplatine.png" width="1000"/>
-<img src="images/testaufbau.jpg" width="1000"/>
-
-Der Elko am Ende des LED-Steifen ist ein "Angst-Elko" :-)...
-<br>
-<br>
+    * eine Powerbank mit ausreichender Kapazität und die mit niedrigen Ladeströmen irgendwie "sinnvoll" umgehen kann
 <br>
 
-
-**Schaltung mit Arduino Mini Pro (Zielplattform):**
-
-...für das eigentliche Gerät brauchen wir den USB-TTL-Konverter nicht mehr, er verbraucht eh nur sinnlos Strom!
+**Schaltung mit Arduino Mini Pro:**
 
 <img src="images/ingos sonne v2_Steckplatine.png" width="1000"/>
 
+**Testaufbau:**
+
+<img src="images/testaufbau_v2.jpg" width="1000"/>
+<br>
+
+**Entgültige Zielhardware:**
+
+...welche dann auch tatsächlich in die Schultüte eingebaut wurde, ...natürlich nicht mit dem Test-LED-Streifen, welcher auf dem Bild zu sehen ist.
+
+<img src="images/zielhardware.jpg" width="1000"/>
+<br>
 
 ## Firmware Mikrocontroller
 
@@ -66,11 +60,27 @@ Was muss die Firmware können, welche "Sonderlocken" sind implementiert:
     * je nach Konfiguration (via Define im Quelltext) löst ein Anruf und/oder eine SMS die Animierung des LED-Streifens aus
     * je nach Konfiguration (via Jumper/Switch) antwortet das System dem Anrufer mit einer SMS
 * wenn eine Verbindunsunterbrechung zum Handy-Netz erkannt wird (ebenfalls via RING-Pin), neuer Verbundungsaufbau
+<br>
+<br>
+
+<img src="images/pap.png"/>
 
 
-## Ergebnis
+## Die Sonnenstrahlen...
 
-...noch war kein Schulanfang...
+...wurden mit Kupferlackdraht entsprechend verbunden. Dieses Gesamtkonstrukt wurde mit Heißkleber auf der Schultüte angebracht.
+
+<img src="images/sonne-loeten.png" width="1000"/>
+
+Die Elektronik und Stromversorgung verschwand im Inneren der Schultüte...
+
+## Das Endergebnis
+
+Hier nur als Standbild:
+
+<img src="images/sonne-leuchtet.png" width="500"/>
+
+Es existieren selbstverständlich auch bewegte Bilder von der Schultüte und dem glücklichen Erstklässler...
 
 
 -----
